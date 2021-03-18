@@ -1,12 +1,3 @@
-const typePlace = document.querySelector('#type');
-const price = document.querySelector('#price');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
-const address = document.querySelector('#address');
-const userTitle = document.querySelector('#title');
-const userPrice = document.querySelector('#price');
-const roomNumberSelect = document.querySelector('#room_number');
-const capacitySelect = document.querySelector('#capacity');
 const MAX_ROOMS_NUMBER = 100;
 
 const PlaceTypes = {
@@ -35,6 +26,16 @@ const placeTypeMap = {
   },
 };
 
+const typePlace = document.querySelector('#type');
+const price = document.querySelector('#price');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+const address = document.querySelector('#address');
+const userTitle = document.querySelector('#title');
+const userPrice = document.querySelector('#price');
+const roomNumberSelect = document.querySelector('#room_number');
+const capacitySelect = document.querySelector('#capacity');
+
 const setAddress = (x, y) => {
   address.value = `${x}, ${y}`;
 };
@@ -53,7 +54,7 @@ timeOut.addEventListener('change', () => {
 });
 
 
-userTitle.addEventListener('invalid', () => {
+userTitle.addEventListener('input', () => {
   if (userTitle.validity.tooShort) {
     userTitle.setCustomValidity('Заголовок должен состоять минимум из 30 символов');
   } else if (userTitle.validity.tooLong) {
@@ -65,7 +66,7 @@ userTitle.addEventListener('invalid', () => {
   }
 });
 
-userPrice.addEventListener('invalid', () => {
+userPrice.addEventListener('input', () => {
   if (userPrice.validity.rangeOverflow) {
     userPrice.setCustomValidity('Значение не должно превышать 1 000 000');
   } else if (userPrice.validity.valueMissing) {
@@ -75,7 +76,7 @@ userPrice.addEventListener('invalid', () => {
   }
 });
 
-const capacityCheck = () => {
+const onCapacityCheck = () => {
   const roomNumber = roomNumberSelect.value;
   const capacity = capacitySelect.value;
 
@@ -90,12 +91,8 @@ const capacityCheck = () => {
   }
 }
 
-capacitySelect.addEventListener('change', () => {
-  capacityCheck();
-})
+capacitySelect.addEventListener('change', onCapacityCheck)
 
-roomNumberSelect.addEventListener('change', () => {
-  capacityCheck();
-})
+roomNumberSelect.addEventListener('change', onCapacityCheck)
 
 export { setAddress };
