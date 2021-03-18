@@ -1,8 +1,4 @@
-const typePlace = document.querySelector('#type');
-const price = document.querySelector('#price');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
-const address = document.querySelector('#address');
+const MAX_ROOMS_NUMBER = 100;
 
 const PlaceTypes = {
   BUNGALO: 'bungalow',
@@ -30,6 +26,16 @@ const placeTypeMap = {
   },
 };
 
+const typePlace = document.querySelector('#type');
+const price = document.querySelector('#price');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+const address = document.querySelector('#address');
+const userTitle = document.querySelector('#title');
+const userPrice = document.querySelector('#price');
+const roomNumberSelect = document.querySelector('#room_number');
+const capacitySelect = document.querySelector('#capacity');
+
 const setAddress = (x, y) => {
   address.value = `${x}, ${y}`;
 };
@@ -46,5 +52,47 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
+
+
+userTitle.addEventListener('input', () => {
+  if (userTitle.validity.tooShort) {
+    userTitle.setCustomValidity('Заголовок должен состоять минимум из 30 символов');
+  } else if (userTitle.validity.tooLong) {
+    userTitle.setCustomValidity('Заголовок не должен превышать 100 символов');
+  } else if (userTitle.validity.valueMissing) {
+    userTitle.setCustomValidity('Обязательное поле');
+  } else {
+    userTitle.setCustomValidity('');
+  }
+});
+
+userPrice.addEventListener('input', () => {
+  if (userPrice.validity.rangeOverflow) {
+    userPrice.setCustomValidity('Значение не должно превышать 1 000 000');
+  } else if (userPrice.validity.valueMissing) {
+    userPrice.setCustomValidity('Обязательное поле');
+  } else {
+    userPrice.setCustomValidity('');
+  }
+});
+
+const onCapacityCheck = () => {
+  const roomNumber = roomNumberSelect.value;
+  const capacity = capacitySelect.value;
+
+  if (roomNumber === MAX_ROOMS_NUMBER && capacity !== '0') {
+    capacitySelect.setCustomValidity('Выберите вариант "Не для гостей"');
+  } else if (roomNumber !== MAX_ROOMS_NUMBER && capacity === '0') {
+    capacitySelect.setCustomValidity('Выберите другой вариант');
+  } else if (roomNumber < capacity) {
+    capacitySelect.setCustomValidity('Выберите меньшее число гостей');
+  } else {
+    capacitySelect.setCustomValidity('');
+  }
+}
+
+capacitySelect.addEventListener('change', onCapacityCheck)
+
+roomNumberSelect.addEventListener('change', onCapacityCheck)
 
 export { setAddress };
