@@ -42,8 +42,8 @@ const renderCard = (point) => {
     card.querySelector(className).classList.add('hidden');
   }
 
-  if (author.name) {
-    card.querySelector('.popup__avatar').src = author.name;
+  if (author.avatar) {
+    card.querySelector('.popup__avatar').src = author.avatar;
   } else {
     hideElement('.popup__avatar');
   }
