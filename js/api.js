@@ -1,4 +1,5 @@
 import { showAlert } from './util.js';
+import { resetMap } from './map.js';
 
 const getData = (onSuccess) => {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -22,12 +23,13 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        resetMap();
       } else {
-        onFail();
+        onFail(`Не удалось отправить форму. Попробуйте ещё раз. Код ошибки: ${response.status} ${response.statusText}.`);
       }
     })
     .catch(() => {
-      onFail();
+      onFail('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
 

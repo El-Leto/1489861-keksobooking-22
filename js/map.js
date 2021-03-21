@@ -97,6 +97,7 @@ const createPoints = (similarObjects) => {
 
 const resetMap = () =>{
   marker.setLatLng([Coordinates.WIDTH,Coordinates.LONGITUDE]).update();
+  setAddress(Coordinates.WIDTH, Coordinates.LONGITUDE);
 }
 
 export { initMap, createPoints, resetMap };

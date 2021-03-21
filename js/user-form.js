@@ -45,8 +45,8 @@ const setUserFormSubmit = (onSuccess, onError) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => onSuccess(),
-      () => onError(),
+      onSuccess,
+      onError,
       new FormData(evt.target),
     );
   });
