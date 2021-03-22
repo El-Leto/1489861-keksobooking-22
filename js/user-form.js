@@ -1,3 +1,6 @@
+import { sendData } from './api.js';
+import { resetMap } from './map.js';
+
 const MAX_ROOMS_NUMBER = 100;
 
 const PlaceTypes = {
@@ -35,6 +38,29 @@ const userTitle = document.querySelector('#title');
 const userPrice = document.querySelector('#price');
 const roomNumberSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
+const form = document.querySelector('.ad-form');
+const formReset = document.querySelector('.ad-form__reset');
+
+const setUserFormSubmit = (onSuccess, onError) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      onSuccess,
+      onError,
+      new FormData(evt.target),
+    );
+  });
+};
+
+const resetForm = () => {
+  form.reset();
+};
+
+formReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+  resetMap();
+});
 
 const setAddress = (x, y) => {
   address.value = `${x}, ${y}`;
@@ -95,4 +121,4 @@ capacitySelect.addEventListener('change', onCapacityCheck)
 
 roomNumberSelect.addEventListener('change', onCapacityCheck)
 
-export { setAddress };
+export { setAddress, setUserFormSubmit, resetForm };

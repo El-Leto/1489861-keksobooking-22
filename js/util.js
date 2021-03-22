@@ -1,35 +1,24 @@
-const getRandomNumber = function(min, max) {
-  if (min < 0 || max <= min) {
-    throw new Error('Неверные данные')
-  }
+const ALERT_SHOW_TIME = 5000;
 
-  return Math.random() * (max - min + 1) + min;
-}
-
-//Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
-
-const getRandomInteger = function(min, max) {
-  return Math.floor(getRandomNumber(min, max));
-}
-
-const getRandomFixed = function (min, max, fixedNumber) {
-  const rand = +(getRandomNumber(min, max));
-
-  return rand.toFixed(fixedNumber);
-}
-
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomInteger(0, elements.length - 1)];
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-const getNewArray = (array, randomNumber) => {
-  const someArray = [];
-  for (let i = 0; i <= randomNumber; i++) {
-    someArray.push(array[i]);
-  }
-  const newArray = new Set(someArray);
-  return Array.from(newArray);
+const isEnterEvent = (evt) => {
+  return evt.key === 'Enter';
 };
 
-export { getRandomNumber, getRandomInteger, getRandomFixed, getRandomArrayElement, getNewArray };
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.classList.add('error_alert-message');
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export { isEscEvent, isEnterEvent, showAlert };

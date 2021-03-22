@@ -1,7 +1,6 @@
 /* global L:readonly */
 import { activate } from './map-disable.js';
 import { setAddress } from './user-form.js';
-import { getSimilarObjects } from './data.js';
 import { renderCard } from './card.js';
 
 const Coordinates = {
@@ -63,35 +62,42 @@ marker.on('moveend', (evt) => {
   setAddress(evt.target.getLatLng().lat.toFixed(5), evt.target.getLatLng().lng.toFixed(5));
 });
 
-const similarObjects = getSimilarObjects();
+//const similarObjects = getSimilarObjects();
 
-similarObjects.forEach((point) => {
-  const {x:lat, y:lng} = point.location;
+const createPoints = (similarObjects) => {
+  similarObjects.forEach((point) => {
+    const {lat:lat, lng:lng} = point.location;
 
-  const pinIcon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [iconSize.WIDTH, iconSize.HEIGHT],
-    iconAnchor: [iconSize.WIDTH/2, iconSize.HEIGHT],
-  });
+    const pinIcon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [iconSize.WIDTH, iconSize.HEIGHT],
+      iconAnchor: [iconSize.WIDTH/2, iconSize.HEIGHT],
+    });
 
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      pinIcon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(
-      renderCard(point),
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat,
+        lng,
+      },
+      {
+        pinIcon,
       },
     );
-});
 
-export { initMap };
+    marker
+      .addTo(map)
+      .bindPopup(
+        renderCard(point),
+        {
+          keepInView: true,
+        },
+      );
+  });
+};
+
+const resetMap = () =>{
+  marker.setLatLng([Coordinates.WIDTH,Coordinates.LONGITUDE]).update();
+  setAddress(Coordinates.WIDTH, Coordinates.LONGITUDE);
+}
+
+export { initMap, createPoints, resetMap };
