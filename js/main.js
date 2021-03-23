@@ -1,16 +1,19 @@
 import { deactivate } from './map-disable.js';
-import { initMap, createPoints, resetMap } from './map.js';
+import { initMap, createPoints, resetMap, updateObjects } from './map.js';
 import { getData } from './api.js';
 import { setUserFormSubmit, resetForm } from './user-form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+import { setFilter } from './filter.js';
+import { debounce } from './util.js';
 
-const SIMILAR_OBJECT_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 deactivate();
-initMap();
 
 getData((objects) => {
-  createPoints(objects.slice(0, SIMILAR_OBJECT_COUNT));
+  initMap();
+  createPoints(objects);
+  setFilter(debounce(() => updateObjects(objects), RERENDER_DELAY));
 });
 
 const successHandler = () => {
