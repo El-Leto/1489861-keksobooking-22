@@ -3,7 +3,7 @@ import { initMap, createPoints, resetMap, updateObjects } from './map.js';
 import { getData } from './api.js';
 import { setUserFormSubmit, resetForm } from './user-form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
-import { setFilter } from './filter.js';
+import { setFilter, resetFilter } from './filter.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
@@ -20,6 +20,7 @@ const successHandler = () => {
   showSuccessMessage();
   resetMap();
   resetForm();
+  resetFilter();
 }
 
 setUserFormSubmit(successHandler, showErrorMessage);

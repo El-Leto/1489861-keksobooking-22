@@ -1,5 +1,6 @@
 import { sendData } from './api.js';
 import { resetMap } from './map.js';
+import { resetFilter } from './filter.js';
 
 const MAX_ROOMS_NUMBER = 100;
 
@@ -59,6 +60,7 @@ const resetForm = () => {
 formReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
+  resetFilter();
   resetMap();
 });
 
