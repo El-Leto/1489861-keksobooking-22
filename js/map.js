@@ -2,6 +2,9 @@
 import { activate } from './map-disable.js';
 import { setAddress } from './user-form.js';
 import { renderCard } from './card.js';
+import { getFilteredObjects } from './filter.js';
+
+const SIMILAR_OBJECT_COUNT = 10;
 
 const Coordinates = {
   WIDTH: 35.68950,
@@ -62,42 +65,54 @@ marker.on('moveend', (evt) => {
   setAddress(evt.target.getLatLng().lat.toFixed(5), evt.target.getLatLng().lng.toFixed(5));
 });
 
-//const similarObjects = getSimilarObjects();
+const markers = L.layerGroup().addTo(map);
 
 const createPoints = (similarObjects) => {
-  similarObjects.forEach((point) => {
-    const {lat:lat, lng:lng} = point.location;
+  similarObjects
+    .slice(0, SIMILAR_OBJECT_COUNT)
+    .forEach((point) => {
+      const {lat:lat, lng:lng} = point.location;
 
-    const pinIcon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [iconSize.WIDTH, iconSize.HEIGHT],
-      iconAnchor: [iconSize.WIDTH/2, iconSize.HEIGHT],
-    });
+      const pinIcon = L.icon({
+        iconUrl: './img/pin.svg',
+        iconSize: [iconSize.WIDTH, iconSize.HEIGHT],
+        iconAnchor: [iconSize.WIDTH/2, iconSize.HEIGHT],
+      });
 
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        pinIcon,
-      },
-    );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        renderCard(point),
+      const marker = L.marker(
         {
-          keepInView: true,
+          lat,
+          lng,
+        },
+        {
+          pinIcon,
         },
       );
-  });
+
+      marker
+        .addTo(markers)
+        .bindPopup(
+          renderCard(point),
+          {
+            keepInView: true,
+          },
+        );
+    });
 };
+
+const resetMarkers = () => {
+  markers.clearLayers();
+}
 
 const resetMap = () =>{
   marker.setLatLng([Coordinates.WIDTH,Coordinates.LONGITUDE]).update();
   setAddress(Coordinates.WIDTH, Coordinates.LONGITUDE);
 }
 
-export { initMap, createPoints, resetMap };
+const updateObjects = (objects) => {
+  resetMarkers();
+  const filteredObjects = getFilteredObjects(objects);
+  createPoints(filteredObjects);
+};
+
+export { initMap, createPoints, resetMap, updateObjects, SIMILAR_OBJECT_COUNT, resetMarkers };

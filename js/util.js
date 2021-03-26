@@ -21,4 +21,17 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { isEscEvent, isEnterEvent, showAlert };
+const debounce = (cb, timeout) => {
+  let timer;
+
+  return () => {
+    if (timer) {
+      window.clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => cb(), timeout)
+  }
+}
+
+
+export { isEscEvent, isEnterEvent, showAlert, debounce };
