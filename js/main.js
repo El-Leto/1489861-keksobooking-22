@@ -1,9 +1,8 @@
 import { deactivate } from './map-disable.js';
-import { initMap, createPoints, resetMap, updateObjects } from './map.js';
+import { initMap, createPoints, updateObjects } from './map.js';
 import { getData } from './api.js';
-import { setUserFormSubmit, resetForm } from './user-form.js';
-import { showSuccessMessage, showErrorMessage } from './message.js';
-import { setFilter, resetFilter } from './filter.js';
+import { setUserFormSubmit, onFormReset } from './user-form.js';
+import { setFilter } from './filter.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
@@ -14,13 +13,6 @@ getData((objects) => {
   initMap();
   createPoints(objects);
   setFilter(debounce(() => updateObjects(objects), RERENDER_DELAY));
+  setUserFormSubmit(objects);
+  onFormReset(objects);
 });
-
-const successHandler = () => {
-  showSuccessMessage();
-  resetMap();
-  resetForm();
-  resetFilter();
-}
-
-setUserFormSubmit(successHandler, showErrorMessage);

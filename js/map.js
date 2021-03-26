@@ -115,4 +115,4 @@ const updateObjects = (objects) => {
   createPoints(filteredObjects);
 };
 
-export { initMap, createPoints, resetMap, updateObjects, SIMILAR_OBJECT_COUNT };
+export { initMap, createPoints, resetMap, updateObjects, SIMILAR_OBJECT_COUNT, resetMarkers };

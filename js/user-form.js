@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { resetMap } from './map.js';
+import { resetMap, resetMarkers, updateObjects } from './map.js';
 import { resetFilter } from './filter.js';
 
 const MAX_ROOMS_NUMBER = 100;
@@ -41,28 +41,40 @@ const roomNumberSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
 const form = document.querySelector('.ad-form');
 const formReset = document.querySelector('.ad-form__reset');
-
-const setUserFormSubmit = (onSuccess, onError) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    sendData(
-      onSuccess,
-      onError,
-      new FormData(evt.target),
-    );
-  });
-};
+import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const resetForm = () => {
   form.reset();
 };
 
-formReset.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const resetToDefaultState = (objects) => {
   resetForm();
   resetFilter();
   resetMap();
-});
+  resetMarkers();
+  updateObjects(objects);
+};
+
+const setUserFormSubmit = (objects) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => {
+        showSuccessMessage();
+        resetToDefaultState(objects);
+      },
+      () => showErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+const onFormReset = (objects) => {
+  formReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetToDefaultState(objects);
+  })
+};
 
 const setAddress = (x, y) => {
   address.value = `${x}, ${y}`;
@@ -123,4 +135,4 @@ capacitySelect.addEventListener('change', onCapacityCheck)
 
 roomNumberSelect.addEventListener('change', onCapacityCheck)
 
-export { setAddress, setUserFormSubmit, resetForm };
+export { setAddress, setUserFormSubmit, onFormReset };
