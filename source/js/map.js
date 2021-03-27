@@ -1,8 +1,8 @@
-/* global L:readonly */
 import { activate } from './map-disable.js';
 import { setAddress } from './user-form.js';
 import { renderCard } from './card.js';
 import { getFilteredObjects } from './filter.js';
+import L from 'leaflet';
 
 const SIMILAR_OBJECT_COUNT = 10;
 

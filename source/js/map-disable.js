@@ -1,3 +1,5 @@
+import { initImageUploaders } from './photo.js';
+
 const form = document.querySelector('.ad-form');
 const formElements = document.querySelectorAll('fieldset');
 const filter = document.querySelector('.map__filters');
@@ -19,6 +21,7 @@ const activate = () => {
   for (let i = 0; i < formElements.length; i++) {
     formElements[i].removeAttribute('disabled', true);
   }
+  initImageUploaders();
   filter.classList.remove('map__filters--disabled');
   for (let i = 0; i < filterElements.length; i++) {
     filterElements[i].removeAttribute('disabled', true);

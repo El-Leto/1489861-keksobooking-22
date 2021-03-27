@@ -1,6 +1,7 @@
 import { sendData } from './api.js';
 import { resetMap, resetMarkers, updateObjects } from './map.js';
 import { resetFilter } from './filter.js';
+import { clearPreview } from './photo.js';
 
 const MAX_ROOMS_NUMBER = 100;
 
@@ -53,6 +54,7 @@ const resetToDefaultState = (objects) => {
   resetMap();
   resetMarkers();
   updateObjects(objects);
+  clearPreview();
 };
 
 const setUserFormSubmit = (objects) => {
