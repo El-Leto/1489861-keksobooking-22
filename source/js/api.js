@@ -9,7 +9,7 @@ const getData = (onSuccess) => {
     })
     .catch(() => {
       showAlert('При загрузке данных произошла ошибка');
-    });
+    })
 };
 
 const sendData = (onSuccess, onFail, body) => {
@@ -30,7 +30,7 @@ const sendData = (onSuccess, onFail, body) => {
     })
     .catch(() => {
       onFail('Не удалось отправить форму. Попробуйте ещё раз');
-    });
+    })
 };
 
 export {getData, sendData};

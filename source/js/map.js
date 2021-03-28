@@ -1,4 +1,4 @@
-/* global L:readonly */
+import L from 'leaflet';
 import { activate } from './map-disable.js';
 import { setAddress } from './user-form.js';
 import { renderCard } from './card.js';
@@ -102,12 +102,12 @@ const createPoints = (similarObjects) => {
 
 const resetMarkers = () => {
   markers.clearLayers();
-}
+};
 
 const resetMap = () =>{
   marker.setLatLng([Coordinates.WIDTH,Coordinates.LONGITUDE]).update();
   setAddress(Coordinates.WIDTH, Coordinates.LONGITUDE);
-}
+};
 
 const updateObjects = (objects) => {
   resetMarkers();

@@ -4,6 +4,7 @@ import { getData } from './api.js';
 import { setUserFormSubmit, onFormReset } from './user-form.js';
 import { setFilter } from './filter.js';
 import { debounce } from './util.js';
+import 'leaflet/dist/leaflet.css';
 
 const RERENDER_DELAY = 500;
 

@@ -1,6 +1,8 @@
 import { sendData } from './api.js';
 import { resetMap, resetMarkers, updateObjects } from './map.js';
 import { resetFilter } from './filter.js';
+import { clearPreview } from './photo.js';
+import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const MAX_ROOMS_NUMBER = 100;
 
@@ -41,7 +43,6 @@ const roomNumberSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
 const form = document.querySelector('.ad-form');
 const formReset = document.querySelector('.ad-form__reset');
-import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const resetForm = () => {
   form.reset();
@@ -53,6 +54,7 @@ const resetToDefaultState = (objects) => {
   resetMap();
   resetMarkers();
   updateObjects(objects);
+  clearPreview();
 };
 
 const setUserFormSubmit = (objects) => {
@@ -129,10 +131,9 @@ const onCapacityCheck = () => {
   } else {
     capacitySelect.setCustomValidity('');
   }
-}
+};
 
-capacitySelect.addEventListener('change', onCapacityCheck)
-
-roomNumberSelect.addEventListener('change', onCapacityCheck)
+capacitySelect.addEventListener('change', onCapacityCheck);
+roomNumberSelect.addEventListener('change', onCapacityCheck);
 
 export { setAddress, setUserFormSubmit, onFormReset };
