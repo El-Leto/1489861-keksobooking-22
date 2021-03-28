@@ -1,5 +1,4 @@
 import L from 'leaflet';
-import { activate } from './map-disable.js';
 import { setAddress } from './user-form.js';
 import { renderCard } from './card.js';
 import { getFilteredObjects } from './filter.js';
@@ -26,9 +25,6 @@ setAddress(Coordinates.WIDTH, Coordinates.LONGITUDE);
 const map = L.map('map-canvas');
 
 const initMap = () => {
-  map.on('load', () => {
-    activate();
-  })
   map.setView({
     lat: Coordinates.WIDTH,
     lng: Coordinates.LONGITUDE,

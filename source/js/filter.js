@@ -50,7 +50,6 @@ const isFeatureTheSame = (featureItem, stay) => {
 };
 
 const getFilteredObjects = (objects) => {
-
   return objects.filter(object => {
     return isHouseTypeTheSame(object) &&
     isHousePriceTheSame(object) &&
