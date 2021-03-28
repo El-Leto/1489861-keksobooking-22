@@ -9,7 +9,7 @@ const FILTER_VALUE = /filter-/;
 const PriceRange = {
   MIN: 10000,
   MAX: 50000,
-}
+};
 
 const filter = document.querySelector('.map__filters');
 const features = document.querySelector('.map__features');
@@ -47,7 +47,7 @@ const isHouseGuestsTheSame = (object) => {
 const isFeatureTheSame = (featureItem, stay) => {
   const featureName = featureItem.getAttribute('id').replace(FILTER_VALUE, '');
   return featureItem.checked === false ? true  : stay.offer.features.includes(featureName);
-}
+};
 
 const getFilteredObjects = (objects) => {
 

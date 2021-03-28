@@ -14,7 +14,7 @@ const deactivate = () => {
   for (let i = 0; i < filterElements.length; i++) {
     filterElements[i].setAttribute('disabled', true);
   }
-}
+};
 
 const activate = () => {
   form.classList.remove('ad-form--disabled');
@@ -26,6 +26,6 @@ const activate = () => {
   for (let i = 0; i < filterElements.length; i++) {
     filterElements[i].removeAttribute('disabled', true);
   }
-}
+};
 
 export { deactivate, activate };

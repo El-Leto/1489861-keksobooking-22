@@ -1,5 +1,5 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-const DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
+const DEFAULT_AVATAR_SRC = './img/muffin-grey.svg';
 const PREVIEW_SIZE = 70;
 
 const avatarUploader = document.querySelector('.ad-form__field input[type=file]');
