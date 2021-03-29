@@ -50,18 +50,25 @@ const isFeatureTheSame = (featureItem, stay) => {
 };
 
 const getFilteredObjects = (objects) => {
-  return objects.filter(object => {
-    return isHouseTypeTheSame(object) &&
-    isHousePriceTheSame(object) &&
-    isHouseRoomsTheSame(object) &&
-    isHouseGuestsTheSame(object) &&
-    isFeatureTheSame(wifiFilterItem, object) &&
-    isFeatureTheSame(dishwasherFilterItem, object) &&
-    isFeatureTheSame(parkingFilterItem, object) &&
-    isFeatureTheSame(washerFilterItem, object) &&
-    isFeatureTheSame(elevatorFilterItem, object) &&
-    isFeatureTheSame(conditionerFilterItem, object);
-  }).slice(0, SIMILAR_OBJECT_COUNT);
+  const filteredObjects = [];
+  for (let i = 0; i < objects.length; i++) {
+    if (isHouseTypeTheSame(objects[i]) &&
+    isHousePriceTheSame(objects[i]) &&
+    isHouseRoomsTheSame(objects[i]) &&
+    isHouseGuestsTheSame(objects[i]) &&
+    isFeatureTheSame(wifiFilterItem, objects[i]) &&
+    isFeatureTheSame(dishwasherFilterItem, objects[i]) &&
+    isFeatureTheSame(parkingFilterItem, objects[i]) &&
+    isFeatureTheSame(washerFilterItem, objects[i]) &&
+    isFeatureTheSame(elevatorFilterItem, objects[i]) &&
+    isFeatureTheSame(conditionerFilterItem, objects[i])) {
+      filteredObjects.push(objects[i]);
+    }
+    if (filteredObjects.length >= SIMILAR_OBJECT_COUNT) {
+      break;
+    }
+  }
+  return filteredObjects;
 };
 
 const setFilter = (cb) => {
