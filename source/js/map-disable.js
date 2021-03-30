@@ -7,25 +7,25 @@ const filterElements = document.querySelectorAll('select');
 
 const deactivate = () => {
   form.classList.add('ad-form--disabled');
-  for (let i = 0; i < formElements.length; i++) {
-    formElements[i].setAttribute('disabled', true);
-  }
+  formElements.forEach(elem => {
+    elem.setAttribute('disabled', true);
+  })
   filter.classList.add('map__filters--disabled');
-  for (let i = 0; i < filterElements.length; i++) {
-    filterElements[i].setAttribute('disabled', true);
-  }
+  filterElements.forEach(elem => {
+    elem.setAttribute('disabled', true);
+  })
 };
 
 const activate = () => {
   form.classList.remove('ad-form--disabled');
-  for (let i = 0; i < formElements.length; i++) {
-    formElements[i].removeAttribute('disabled', true);
-  }
+  formElements.forEach(elem => {
+    elem.removeAttribute('disabled', true);
+  })
   initImageUploaders();
   filter.classList.remove('map__filters--disabled');
-  for (let i = 0; i < filterElements.length; i++) {
-    filterElements[i].removeAttribute('disabled', true);
-  }
+  filterElements.forEach(elem => {
+    elem.removeAttribute('disabled', true);
+  })
 };
 
 export { deactivate, activate };

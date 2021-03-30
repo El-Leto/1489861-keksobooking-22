@@ -5,24 +5,24 @@ const popup = cardTemplate.querySelector('.popup');
 
 const getNewFeaturesList = (features) => {
   const similarListFragment = document.createDocumentFragment();
-  for (let i = 0; i < features.length; i++) {
+  features.forEach(elem => {
     const newFeature = document.createElement('li');
-    const featureUniqueClass = `popup__feature--${features[i]}`;
+    const featureUniqueClass = `popup__feature--${elem}`;
     newFeature.classList.add('popup__feature', featureUniqueClass);
     similarListFragment.appendChild(newFeature);
-  }
+  })
   return similarListFragment;
 };
 
 const getNewPhotosList = (photos) => {
   const similarListFragment = document.createDocumentFragment();
-  for (let i = 0; i < photos.length; i++) {
+  photos.forEach(elem => {
     const newImage = new Image(WIDTH, HEIGHT);
     newImage.classList.add('popup__photo');
     newImage.alt = 'Фотография жилья';
-    newImage.src = photos[i];
+    newImage.src = elem;
     similarListFragment.appendChild(newImage);
-  }
+  })
   return similarListFragment;
 };
 
